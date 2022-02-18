@@ -11,6 +11,8 @@ import java.util.concurrent.Executors;
 public abstract class AppDataBase extends RoomDatabase {
 
     public abstract TaskDao taskDao();
+
     public abstract ProjectDao projectDao();
+
     public final ExecutorService executorService = Executors.newFixedThreadPool(4);
 }

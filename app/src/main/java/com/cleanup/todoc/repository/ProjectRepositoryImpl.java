@@ -1,19 +1,16 @@
 package com.cleanup.todoc.repository;
 
-import android.app.Application;
-
 import androidx.lifecycle.LiveData;
 
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.ProjectDao;
-import com.cleanup.todoc.model.Task;
 
 import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
 
-public class ProjectRepositoryImpl implements ProjectRepository{
+public class ProjectRepositoryImpl implements ProjectRepository {
     public ProjectDao projectDao;
     private LiveData<List<Project>> allProject;
 
@@ -23,7 +20,7 @@ public class ProjectRepositoryImpl implements ProjectRepository{
         this.allProject = allProject;
     }
 
-    public LiveData<List<Project>> getAllProjects(){
+    public LiveData<List<Project>> getAllProjects() {
         return allProject;
     }
 
