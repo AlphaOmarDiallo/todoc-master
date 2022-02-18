@@ -1,7 +1,10 @@
 package com.cleanup.todoc.ui;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,16 +18,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.viewmodel.MainActivityViewModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * <p>Home activity of the application which is displayed when the user opens the app.</p>
@@ -32,6 +39,7 @@ import java.util.Date;
  *
  * @author Gaëtan HERFRAY
  */
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity implements TasksAdapter.DeleteTaskListener {
     /**
      * List of all projects available in the application
@@ -89,10 +97,14 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @NonNull
     private TextView lblNoTasks;
 
+    private MainActivityViewModel viewModel;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        Log.d(TAG, "onCreate: " + viewModel.getAllTasks().toString());
+        Log.e(TAG, "onCreate: test" + viewModel.getAllProjects().toString() );
         setContentView(R.layout.activity_main);
 
         listTasks = findViewById(R.id.list_tasks);

@@ -8,7 +8,6 @@ import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.repository.ProjectRepositoryImpl;
 import com.cleanup.todoc.repository.TaskRepositoryImpl;
 
-import java.lang.annotation.Annotation;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,6 +28,30 @@ public class MainActivityViewModel extends ViewModel {
         this.projectRepositoryImpl = projectRepositoryImpl;
         allTasks = taskRepositoryImpl.getAllTasks();
         allProjects = projectRepositoryImpl.getAllProjects();
+    }
+
+    public LiveData<List<Project>> getAllProjects() {
+        return allProjects;
+    }
+
+    public Project getProjectById(long id) {
+        return projectRepositoryImpl.getProjectById(id);
+    }
+
+    public LiveData<List<Task>> getAllTasks() {
+        return allTasks;
+    }
+
+    public void insertTask(Task task) {
+        taskRepositoryImpl.insertTask(task);
+    }
+
+    public void updateTask(Task task) {
+        taskRepositoryImpl.updateTask(task);
+    }
+
+    public void deleteTask(Task task) {
+        taskRepositoryImpl.deleteTask(task);
     }
 
 }
