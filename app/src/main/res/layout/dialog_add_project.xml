@@ -9,21 +9,13 @@
     android:paddingEnd="16dp">
 
     <EditText
-        android:id="@+id/txt_task_name"
+        android:id="@+id/txt_add_project"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/add_project_hint"
+        android:hint="@string/task_name_hint"
         android:importantForAutofill="no"
         android:inputType="textAutoComplete"
         tools:ignore="UnusedAttribute" />
-
-    <Spinner
-        android:id="@+id/project_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:paddingBottom="12dp"
-        android:textSize="14sp" />
 
     <View
         android:layout_width="match_parent"

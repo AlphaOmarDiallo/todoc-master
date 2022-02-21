@@ -20,7 +20,7 @@ public class TaskRepositoryImpl implements TaskRepository {
     public TaskRepositoryImpl(TaskDao taskDao, ExecutorService executorService, LiveData<List<Task>> allTasks) {
         this.taskDao = taskDao;
         this.executorService = executorService;
-        this.allTasks = taskDao.getTasks();
+        this.allTasks = allTasks;
     }
 
     public LiveData<List<Task>> getAllTasks() {
@@ -29,10 +29,6 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     public void insertTask(Task task) {
         executorService.execute(() -> taskDao.insertTask(task));
-    }
-
-    public void updateTask(Task task) {
-        executorService.execute(() -> taskDao.updateTask(task));
     }
 
     public void deleteTask(Task task) {

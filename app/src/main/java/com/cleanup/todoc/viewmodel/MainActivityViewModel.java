@@ -42,16 +42,20 @@ public class MainActivityViewModel extends ViewModel {
         return allTasks;
     }
 
+    public void insertProject(Project project) {
+        projectRepositoryImpl.insertProject(project);
+    }
+
     public void insertTask(Task task) {
         taskRepositoryImpl.insertTask(task);
     }
 
-    public void updateTask(Task task) {
-        taskRepositoryImpl.updateTask(task);
-    }
-
     public void deleteTask(Task task) {
         taskRepositoryImpl.deleteTask(task);
+    }
+
+    public int numberOfTasks() {
+        return allTasks.getValue().size();
     }
 
 }

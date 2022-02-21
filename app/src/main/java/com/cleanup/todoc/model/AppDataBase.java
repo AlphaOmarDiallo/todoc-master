@@ -1,10 +1,14 @@
 package com.cleanup.todoc.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.inject.Inject;
 
 @Database(entities = {Project.class, Task.class}, version = 1, exportSchema = false
 )
@@ -15,4 +19,5 @@ public abstract class AppDataBase extends RoomDatabase {
     public abstract ProjectDao projectDao();
 
     public final ExecutorService executorService = Executors.newFixedThreadPool(4);
+
 }

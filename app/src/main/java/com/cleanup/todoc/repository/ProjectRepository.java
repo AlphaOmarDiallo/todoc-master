@@ -10,4 +10,6 @@ public interface ProjectRepository {
     LiveData<List<Project>> getAllProjects();
 
     Project getProjectById(long id);
+
+    void insertProject(Project project);
 }

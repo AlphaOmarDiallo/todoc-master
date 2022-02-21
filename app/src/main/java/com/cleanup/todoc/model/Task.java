@@ -68,6 +68,7 @@ public class Task {
     public Project getProject() {
         return Project.getProjectById(projectId);
     }
+
     // ============================================================================
     // COMPARATORS
 

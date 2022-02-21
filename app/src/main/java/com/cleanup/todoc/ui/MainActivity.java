@@ -1,10 +1,7 @@
 package com.cleanup.todoc.ui;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +27,7 @@ import com.cleanup.todoc.viewmodel.MainActivityViewModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -41,21 +39,23 @@ import dagger.hilt.android.AndroidEntryPoint;
  */
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity implements TasksAdapter.DeleteTaskListener {
+
+    public MainActivityViewModel viewModel;
     /**
      * List of all projects available in the application
      */
-    private final Project[] allProjects = Project.getAllProjects();
+    private List<Project> allProjects;
 
     /**
      * List of all current tasks of the application
      */
-    @NonNull
-    private final ArrayList<Task> tasks = new ArrayList<>();
+    //@NonNull
+    //private List<Task> tasks;
 
     /**
      * The adapter which handles the list of tasks
      */
-    private final TasksAdapter adapter = new TasksAdapter(tasks, this);
+    private final TasksAdapter adapter = new TasksAdapter( this);
 
     /**
      * The sort method to be used to display tasks
@@ -97,14 +97,10 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @NonNull
     private TextView lblNoTasks;
 
-    private MainActivityViewModel viewModel;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        Log.d(TAG, "onCreate: " + viewModel.getAllTasks().toString());
-        Log.e(TAG, "onCreate: test" + viewModel.getAllProjects().toString() );
         setContentView(R.layout.activity_main);
 
         listTasks = findViewById(R.id.list_tasks);
@@ -113,12 +109,23 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         listTasks.setAdapter(adapter);
 
+        viewModel.getAllTasks().observe(this, this::updateTasks);
+        viewModel.getAllProjects().observe(this, this::updateProjects);
+
         findViewById(R.id.fab_add_task).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showAddTaskDialog();
             }
         });
+    }
+
+    //private void updateListTasks(List<Task> tasks) {
+    //    this.tasks = tasks;
+    //}
+
+    private void updateProjects(List<Project> projects) {
+        this.allProjects = projects;
     }
 
     @Override
@@ -141,15 +148,12 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             sortMethod = SortMethod.RECENT_FIRST;
         }
 
-        updateTasks();
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onDeleteTask(Task task) {
-        tasks.remove(task);
-        updateTasks();
+        viewModel.deleteTask(task);
     }
 
     /**
@@ -220,14 +224,15 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      * @param task the task to be added to the list
      */
     private void addTask(@NonNull Task task) {
-        tasks.add(task);
-        updateTasks();
+        viewModel.insertTask(task);
     }
 
     /**
      * Updates the list of tasks in the UI
      */
-    private void updateTasks() {
+    public void updateTasks(List<Task> tasks) {
+        //updateListTasks(tasks);
+        //adapter._updateTasks(tasks);
         if (tasks.size() == 0) {
             lblNoTasks.setVisibility(View.VISIBLE);
             listTasks.setVisibility(View.GONE);
@@ -249,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                     break;
 
             }
-            adapter.updateTasks(tasks);
+            adapter._updateTasks(tasks);
         }
     }
 
@@ -333,3 +338,4 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         NONE
     }
 }
+
