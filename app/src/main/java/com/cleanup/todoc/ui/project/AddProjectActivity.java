@@ -1,13 +1,13 @@
 package com.cleanup.todoc.ui.project;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
@@ -43,14 +43,16 @@ public class AddProjectActivity extends AppCompatActivity {
                 if (projectName.getText().toString().trim().length() == 0) {
                     Toast.makeText(AddProjectActivity.this, R.string.empty_project_name, Toast.LENGTH_SHORT).show();
                 } else {
-                   viewModel.insertProject(viewModel.createProject(allProjects, projectName.getText().toString()));
+                    viewModel.insertProject(viewModel.createProject(allProjects, projectName.getText().toString()));
+                    Toast.makeText(AddProjectActivity.this, "", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
         });
 
     }
 
-    private List<Project> getAllProjects(List<Project> projects){
+    private List<Project> getAllProjects(List<Project> projects) {
         allProjects = projects;
         return allProjects;
     }

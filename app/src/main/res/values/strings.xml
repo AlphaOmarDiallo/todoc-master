@@ -1,28 +1,21 @@
 <resources>
     <string name="app_name">Todoc</string>
-
     <string name="label_action_filter">Filter</string>
-
     <string name="sort_alphabetical">A -&gt; Z</string>
     <string name="sort_alphabetical_invert">Z -&gt; A</string>
     <string name="sort_oldest_first">Les plus anciens d’abord</string>
     <string name="sort_recent_first">Les plus récents d’abord</string>
-
     <string name="add_task">Ajouter une tâche</string>
     <string name="add">Ajouter</string>
-
     <string name="no_task">Tu n’as aucune tâche à traiter</string>
-
     <string name="task_name_hint">Nom de la tâche</string>
-
     <string name="empty_task_name">Le nom de la tâche doit être renseigné</string>
-
     <string name="empty_project_name">Le nom du projet doit être renseigné</string>
+    <string name="project_created">Le projet a bien été créé</string>
     <string name="add_project">Add project</string>
     <string name="add_project_hint">Nom du nouveau projet</string>
     <string name="add_project_dialog">Ajouter un projet</string>
-
-    <string name="return_to_todo_list">Retour aux taches</string>
+    <string name="return_to_todo_list">Retour aux tâches</string>
     <string name="add_a_project">Nouveau projet</string>
     <string name="project_color">Project color</string>
     <string name="delete_button">Delete button</string>

@@ -15,7 +15,7 @@ import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 
-public class ProjectViewHolder extends RecyclerView.ViewHolder{
+public class ProjectViewHolder extends RecyclerView.ViewHolder {
 
     DeleteProjectListener deleteProjectListener;
     ImageView colorImage;
@@ -31,15 +31,7 @@ public class ProjectViewHolder extends RecyclerView.ViewHolder{
         name = itemView.findViewById(R.id.tv_name_item_project);
         buttonDelete = itemView.findViewById(R.id.ib_delete_item_project);
 
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Object tag = view.getTag();
-                if (tag instanceof Project) {
-                    ProjectViewHolder.this.deleteProjectListener.onDeleteProject((Project) tag);
-                }
-            }
-        });
+        buttonDelete.setVisibility(View.INVISIBLE);
     }
 
     public void bind(Project project) {
