@@ -2,6 +2,7 @@ package com.cleanup.todoc.model;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -17,4 +18,7 @@ public interface ProjectDao {
 
     @Insert
     void insertProject(Project project);
+
+    @Delete
+    void deleteProject(Project project);
 }

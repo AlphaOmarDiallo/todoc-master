@@ -33,7 +33,7 @@ public class ProjectAdapter extends ListAdapter<Project, ProjectViewHolder> {
         holder.bind(getItem(position));
     }
 
-    class ProjectDiff extends DiffUtil.ItemCallback<Project>{
+    static class ProjectDiff extends DiffUtil.ItemCallback<Project>{
 
         @Override
         public boolean areItemsTheSame(@NonNull Project oldItem, @NonNull Project newItem) {

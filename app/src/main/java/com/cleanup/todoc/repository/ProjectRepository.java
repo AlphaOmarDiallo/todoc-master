@@ -12,4 +12,6 @@ public interface ProjectRepository {
     Project getProjectById(long id);
 
     void insertProject(Project project);
+
+    void deleteProject(Project project);
 }

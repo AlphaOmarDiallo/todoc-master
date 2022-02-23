@@ -36,4 +36,8 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     public void insertProject(Project project){
         executorService.execute(() -> projectDao.insertProject(project));
     }
+
+    public void deleteProject(Project project){
+        executorService.execute(() -> projectDao.deleteProject(project));
+    }
 }

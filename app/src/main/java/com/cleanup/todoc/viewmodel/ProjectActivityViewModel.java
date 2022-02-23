@@ -15,7 +15,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class MainActivityViewModel extends ViewModel {
+public class ProjectActivityViewModel extends ViewModel {
 
     private final TaskRepositoryImpl taskRepositoryImpl;
     private final ProjectRepositoryImpl projectRepositoryImpl;
@@ -23,31 +23,26 @@ public class MainActivityViewModel extends ViewModel {
     LiveData<List<Task>> allTasks;
 
     @Inject
-    public MainActivityViewModel(TaskRepositoryImpl taskRepositoryImpl, ProjectRepositoryImpl projectRepositoryImpl) {
+    public ProjectActivityViewModel(TaskRepositoryImpl taskRepositoryImpl, ProjectRepositoryImpl projectRepositoryImpl) {
         this.taskRepositoryImpl = taskRepositoryImpl;
         this.projectRepositoryImpl = projectRepositoryImpl;
         allTasks = taskRepositoryImpl.getAllTasks();
         allProjects = projectRepositoryImpl.getAllProjects();
     }
 
-    public LiveData<List<Project>> getAllProjects() {
-        return allProjects;
-    }
-
-    public Project getProjectById(long id) {
-        return projectRepositoryImpl.getProjectById(id);
-    }
-
     public LiveData<List<Task>> getAllTasks() {
         return allTasks;
     }
 
-    public void insertTask(Task task) {
-        taskRepositoryImpl.insertTask(task);
+    public LiveData<List<Project>> getAllProjects() {
+        return allProjects;
     }
 
-    public void deleteTask(Task task) {
-        taskRepositoryImpl.deleteTask(task);
+    public void insertProject(Project project) {
+        projectRepositoryImpl.insertProject(project);
     }
 
+    public void deleteProject(Project project) {
+        projectRepositoryImpl.deleteProject(project);
+    }
 }
