@@ -21,4 +21,9 @@
     <string name="add_project">Add project</string>
     <string name="add_project_hint">Nom du nouveau projet</string>
     <string name="add_project_dialog">Ajouter un projet</string>
+
+    <string name="return_to_todo_list">Retour aux taches</string>
+    <string name="add_a_project">Nouveau projet</string>
+    <string name="project_color">Project color</string>
+    <string name="delete_button">Delete button</string>
 </resources>

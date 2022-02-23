@@ -1,6 +1,7 @@
 package com.cleanup.todoc.ui;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.ui.project.ProjectActivity;
 import com.cleanup.todoc.viewmodel.MainActivityViewModel;
 
 import java.util.ArrayList;
@@ -146,6 +148,9 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             sortMethod = SortMethod.OLD_FIRST;
         } else if (id == R.id.filter_recent_first) {
             sortMethod = SortMethod.RECENT_FIRST;
+        } else if (id == R.id.add_project) {
+            Intent intent = new Intent(this, ProjectActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
