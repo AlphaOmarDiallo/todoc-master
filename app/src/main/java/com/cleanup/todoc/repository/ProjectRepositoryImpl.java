@@ -1,7 +1,6 @@
 package com.cleanup.todoc.repository;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Dao;
 
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.ProjectDao;
@@ -15,7 +14,8 @@ import javax.inject.Inject;
 public class ProjectRepositoryImpl implements ProjectRepository {
     public ProjectDao projectDao;
     public ExecutorService executorService;
-    private LiveData<List<Project>> allProject;
+    public LiveData<List<Project>> allProject;
+    public List<Project> listProjects;
 
     @Inject
     public ProjectRepositoryImpl(ProjectDao projectDao, LiveData<List<Project>> allProject, ExecutorService executorService) {
@@ -29,15 +29,19 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         return allProject;
     }
 
+    public List<Project> getListProjects() {
+        return listProjects = projectDao.getListProjects();
+    }
+
     public Project getProjectById(long id) {
         return Objects.requireNonNull(allProject.getValue()).get((int) id);
     }
 
-    public void insertProject(Project project){
+    public void insertProject(Project project) {
         executorService.execute(() -> projectDao.insertProject(project));
     }
 
-    public void deleteProject(Project project){
+    public void deleteProject(Project project) {
         executorService.execute(() -> projectDao.deleteProject(project));
     }
 }

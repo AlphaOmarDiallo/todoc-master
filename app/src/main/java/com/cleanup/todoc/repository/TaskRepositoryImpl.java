@@ -14,7 +14,7 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     public TaskDao taskDao;
     public ExecutorService executorService;
-    private LiveData<List<Task>> allTasks;
+    public LiveData<List<Task>> allTasks;
 
     @Inject
     public TaskRepositoryImpl(TaskDao taskDao, ExecutorService executorService, LiveData<List<Task>> allTasks) {

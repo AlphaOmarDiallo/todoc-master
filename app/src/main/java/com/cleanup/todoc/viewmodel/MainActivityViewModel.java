@@ -34,6 +34,10 @@ public class MainActivityViewModel extends ViewModel {
         return allProjects;
     }
 
+    public List<Project> listProjects() {
+        return projectRepositoryImpl.getListProjects();
+    }
+
     public Project getProjectById(long id) {
         return projectRepositoryImpl.getProjectById(id);
     }

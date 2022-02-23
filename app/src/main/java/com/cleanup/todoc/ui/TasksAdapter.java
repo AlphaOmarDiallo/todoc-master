@@ -1,9 +1,13 @@
 package com.cleanup.todoc.ui;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.res.ColorStateList;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,8 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
-import com.cleanup.todoc.repository.ProjectRepositoryImpl;
-import com.cleanup.todoc.viewmodel.MainActivityViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +27,15 @@ import java.util.List;
  * @author Gaëtan HERFRAY
  */
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHolder> {
+
     /**
      * The list of tasks the adapter deals with
      */
     @NonNull
     private List<Task> tasks;
+
+    private List<Project> projects;
+
 
     /**
      * The listener for when a task needs to be deleted
@@ -39,13 +45,14 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
 
     /**
      * Instantiates a new TasksAdapter.
-     *
-     /** @param tasks the list of tasks the adapter deals with to set
+     * <p>
+     * /** @param tasks the list of tasks the adapter deals with to set
      */
     public TasksAdapter(/*@NonNull final List<Task> tasks,*/ @NonNull final DeleteTaskListener deleteTaskListener) {
         this.tasks = new ArrayList<>();
         this.deleteTaskListener = deleteTaskListener;
     }
+
 
     /**
      * Updates the list of tasks the adapter deals with.
@@ -55,6 +62,10 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
     void _updateTasks(List<Task> tasks) {
         this.tasks = tasks;
         notifyDataSetChanged();
+    }
+
+    void _updateProjects(List<Project> projects) {
+        this.projects = projects;
     }
 
     @NonNull
@@ -95,7 +106,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         /**
          * The circle icon showing the color of the project
          */
-        private final AppCompatImageView imgProject;
+        private final ImageView imgProject;
 
         /**
          * The TextView displaying the name of the task
@@ -120,7 +131,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         /**
          * Instantiates a new TaskViewHolder.
          *
-         * @param itemView the view of the task item
+         * @param itemView           the view of the task item
          * @param deleteTaskListener the listener for when a task needs to be deleted to set
          */
         TaskViewHolder(@NonNull View itemView, @NonNull DeleteTaskListener deleteTaskListener) {
@@ -150,16 +161,24 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
          * @param task the task to bind in the item view
          */
         void bind(Task task) {
+
             lblTaskName.setText(task.getName());
             imgDelete.setTag(task);
-
-            final Project taskProject = task.getProject();
-            if (taskProject != null) {
-                imgProject.setSupportImageTintList(ColorStateList.valueOf(taskProject.getColor()));
-                lblProjectName.setText(taskProject.getName());
-            } else {
-                imgProject.setVisibility(View.INVISIBLE);
-                lblProjectName.setText("");
+            try {
+                for (Project project : projects) {
+                    Log.e(TAG, "bind: " + projects, null);
+                    if (task.getProjectId() == project.getId()) {
+                        Log.e(TAG, "bind: " + project, null);
+                        Log.e(TAG, "bind: " + project.getColor(), null);
+                        imgProject.setImageTintList(ColorStateList.valueOf(project.getColor()));
+                        lblProjectName.setText(project.getName());
+                    } else {
+                        imgProject.setVisibility(View.INVISIBLE);
+                        lblProjectName.setText("");
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }

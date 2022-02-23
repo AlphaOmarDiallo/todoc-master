@@ -18,7 +18,6 @@ public class Task {
     @ColumnInfo(name = "task_projectId", index = true)
     private long projectId;
     // Suppress warning because setName is called in constructor
-    @NonNull
     @ColumnInfo(name = "task_name")
     private String name;
 

@@ -13,7 +13,10 @@ public interface ProjectDao {
     @Query("SELECT * FROM project_table")
     LiveData<List<Project>> getAllProjects();
 
-    @Query ("SELECT * FROM project_table WHERE project_id = :id")
+    @Query("SELECT * FROM project_table")
+    List<Project> getListProjects();
+
+    @Query("SELECT * FROM project_table WHERE project_id = :id")
     LiveData<Project> getProjectById(long id);
 
     @Insert

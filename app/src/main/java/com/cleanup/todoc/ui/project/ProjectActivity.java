@@ -1,23 +1,23 @@
 package com.cleanup.todoc.ui.project;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.cleanup.todoc.R;
+import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.viewmodel.ProjectActivityViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ProjectActivity extends AppCompatActivity {
+public class ProjectActivity extends AppCompatActivity implements DeleteProjectListener{
 
     ProjectActivityViewModel viewModel;
     ProjectAdapter adapter;
@@ -56,5 +56,10 @@ public class ProjectActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onDeleteProject(Project project) {
+        viewModel.deleteProject(project);
     }
 }

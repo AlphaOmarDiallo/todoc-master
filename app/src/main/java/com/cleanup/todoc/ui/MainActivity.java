@@ -26,7 +26,6 @@ import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.ui.project.ProjectActivity;
 import com.cleanup.todoc.viewmodel.MainActivityViewModel;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -43,58 +42,18 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivity extends AppCompatActivity implements TasksAdapter.DeleteTaskListener {
 
     public MainActivityViewModel viewModel;
-    /**
-     * List of all projects available in the application
-     */
     private List<Project> allProjects;
-
-    /**
-     * List of all current tasks of the application
-     */
-    //@NonNull
-    //private List<Task> tasks;
-
-    /**
-     * The adapter which handles the list of tasks
-     */
-    private final TasksAdapter adapter = new TasksAdapter( this);
-
-    /**
-     * The sort method to be used to display tasks
-     */
+    private final TasksAdapter adapter = new TasksAdapter(this);
     @NonNull
     private SortMethod sortMethod = SortMethod.NONE;
-
-    /**
-     * Dialog to create a new task
-     */
     @Nullable
     public AlertDialog dialog = null;
-
-    /**
-     * EditText that allows user to set the name of a task
-     */
     @Nullable
     private EditText dialogEditText = null;
-
-    /**
-     * Spinner that allows the user to associate a project to a task
-     */
     @Nullable
     private Spinner dialogSpinner = null;
-
-    /**
-     * The RecyclerView which displays the list of tasks
-     */
-    // Suppress warning is safe because variable is initialized in onCreate
-    @SuppressWarnings("NullableProblems")
     @NonNull
     private RecyclerView listTasks;
-
-    /**
-     * The TextView displaying the empty state
-     */
-    // Suppress warning is safe because variable is initialized in onCreate
     @SuppressWarnings("NullableProblems")
     @NonNull
     private TextView lblNoTasks;
@@ -111,8 +70,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         listTasks.setAdapter(adapter);
 
-        viewModel.getAllTasks().observe(this, this::updateTasks);
         viewModel.getAllProjects().observe(this, this::updateProjects);
+        viewModel.getAllTasks().observe(this, this::updateTasks);
 
         findViewById(R.id.fab_add_task).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,10 +80,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             }
         });
     }
-
-    //private void updateListTasks(List<Task> tasks) {
-    //    this.tasks = tasks;
-    //}
 
     private void updateProjects(List<Project> projects) {
         this.allProjects = projects;
@@ -199,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 dialogInterface.dismiss();
             }
             // If name has been set, but project has not been set (this should never occur)
-            else{
+            else {
                 dialogInterface.dismiss();
             }
         }
@@ -236,8 +191,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      * Updates the list of tasks in the UI
      */
     public void updateTasks(List<Task> tasks) {
-        //updateListTasks(tasks);
-        //adapter._updateTasks(tasks);
         if (tasks.size() == 0) {
             lblNoTasks.setVisibility(View.VISIBLE);
             listTasks.setVisibility(View.GONE);
@@ -260,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
             }
             adapter._updateTasks(tasks);
+            adapter._updateProjects(allProjects);
         }
     }
 

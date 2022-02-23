@@ -9,6 +9,8 @@ import java.util.List;
 public interface ProjectRepository {
     LiveData<List<Project>> getAllProjects();
 
+    List<Project> getListProjects();
+
     Project getProjectById(long id);
 
     void insertProject(Project project);

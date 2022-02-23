@@ -5,7 +5,6 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.room.Room;
-import androidx.room.RoomDatabase;
 
 import com.cleanup.todoc.model.AppDataBase;
 import com.cleanup.todoc.model.Project;

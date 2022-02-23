@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.util.Log;
 
 import androidx.annotation.ColorInt;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -55,11 +54,12 @@ public class ProjectActivityViewModel extends ViewModel {
         projectRepositoryImpl.deleteProject(project);
     }
 
-    public List<Project> currentList(List<Project> projects){
+    public List<Project> currentList(List<Project> projects) {
         return projects;
     }
 
-    public @ColorInt int randomColor(){
+    public @ColorInt
+    int randomColor() {
         Random random = new Random();
         int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
         return color;
@@ -74,9 +74,9 @@ public class ProjectActivityViewModel extends ViewModel {
         if (projects.isEmpty()) {
             projectId = 1;
         } else {
-            for(int i = 0; i < listProject.size(); i++) {
+            for (int i = 0; i < listProject.size(); i++) {
                 long id = listProject.get(i).getId();
-                if (id > greatestId){
+                if (id > greatestId) {
                     greatestId = id;
                 }
             }
