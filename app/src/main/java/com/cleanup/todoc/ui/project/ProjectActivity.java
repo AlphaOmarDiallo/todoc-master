@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,7 +34,7 @@ public class ProjectActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.rvProject);
         buttonReturn = findViewById(R.id.button_return_home);
-        buttonAdd = findViewById(R.id.add_project);
+        buttonAdd = findViewById(R.id.button_add_project);
 
         adapter = new ProjectAdapter(new ProjectAdapter.ProjectDiff());
         recyclerView.setAdapter(adapter);
@@ -45,6 +46,14 @@ public class ProjectActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProjectActivity.this, AddProjectActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -13,6 +13,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".ui.project.AddProjectActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.project.ProjectActivity"
             android:exported="false" />
         <activity
