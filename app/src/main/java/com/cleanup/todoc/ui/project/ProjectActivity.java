@@ -2,7 +2,6 @@ package com.cleanup.todoc.ui.project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,19 +41,11 @@ public class ProjectActivity extends AppCompatActivity implements DeleteProjectL
 
         viewModel.getAllProjects().observe(this, adapter::submitList);
 
-        buttonReturn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        buttonReturn.setOnClickListener(view -> finish());
 
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ProjectActivity.this, AddProjectActivity.class);
-                startActivity(intent);
-            }
+        buttonAdd.setOnClickListener(view -> {
+            Intent intent = new Intent(ProjectActivity.this, AddProjectActivity.class);
+            startActivity(intent);
         });
     }
 

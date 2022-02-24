@@ -32,18 +32,13 @@ import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
-/**
- * <p>Home activity of the application which is displayed when the user opens the app.</p>
- * <p>Displays the list of tasks.</p>
- *
- * @author Gaëtan HERFRAY
- */
 @AndroidEntryPoint
-public class MainActivity extends AppCompatActivity implements TasksAdapter.DeleteTaskListener {
+public class MainActivity extends AppCompatActivity implements DeleteTaskListener {
 
     public MainActivityViewModel viewModel;
     private List<Project> allProjects;
-    private final TasksAdapter adapter = new TasksAdapter(this);
+    //private final TasksAdapter adapter = new TasksAdapter(this);
+    private TaskAdapter adapter = new TaskAdapter(new TaskAdapter.TaskDiff());
     @NonNull
     private SortMethod sortMethod = SortMethod.NONE;
     @Nullable
@@ -71,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         listTasks.setAdapter(adapter);
 
         viewModel.getAllProjects().observe(this, this::updateProjects);
+        viewModel.getAllTasks().observe(this, adapter::submitList);
         viewModel.getAllTasks().observe(this, this::updateTasks);
 
         findViewById(R.id.fab_add_task).setOnClickListener(new View.OnClickListener() {
@@ -212,8 +208,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                     break;
 
             }
-            adapter._updateTasks(tasks);
-            adapter._updateProjects(allProjects);
+            //adapter._updateTasks(tasks);
+            //adapter._updateProjects(viewModel.listProjects());
         }
     }
 

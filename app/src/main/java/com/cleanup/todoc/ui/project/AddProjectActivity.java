@@ -1,7 +1,6 @@
 package com.cleanup.todoc.ui.project;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -37,16 +36,13 @@ public class AddProjectActivity extends AppCompatActivity {
 
         viewModel.getAllProjects().observe(this, this::getAllProjects);
 
-        addNewProject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (projectName.getText().toString().trim().length() == 0) {
-                    Toast.makeText(AddProjectActivity.this, R.string.empty_project_name, Toast.LENGTH_SHORT).show();
-                } else {
-                    viewModel.insertProject(viewModel.createProject(allProjects, projectName.getText().toString()));
-                    Toast.makeText(AddProjectActivity.this, "", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+        addNewProject.setOnClickListener(view -> {
+            if (projectName.getText().toString().trim().length() == 0) {
+                Toast.makeText(AddProjectActivity.this, R.string.empty_project_name, Toast.LENGTH_SHORT).show();
+            } else {
+                viewModel.insertProject(viewModel.createProject(allProjects, projectName.getText().toString()));
+                Toast.makeText(AddProjectActivity.this, "", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 

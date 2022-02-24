@@ -30,7 +30,8 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     public List<Project> getListProjects() {
-        return listProjects = projectDao.getListProjects();
+        executorService.execute(() -> listProjects = projectDao.getListProjects());
+        return listProjects;
     }
 
     public Project getProjectById(long id) {

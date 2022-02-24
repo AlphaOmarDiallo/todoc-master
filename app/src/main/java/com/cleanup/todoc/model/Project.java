@@ -27,7 +27,7 @@ public class Project {
         this.color = color;
     }
 
-    @NonNull
+     @NonNull
     public static Project[] getAllProjects() {
         return new Project[]{
                 new Project(1L, "Projet Tartampion", 0xFFEADAD1),
