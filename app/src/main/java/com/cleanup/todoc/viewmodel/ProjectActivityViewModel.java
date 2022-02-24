@@ -13,6 +13,7 @@ import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.repository.ProjectRepositoryImpl;
 import com.cleanup.todoc.repository.TaskRepositoryImpl;
+import com.cleanup.todoc.utils.RandomColorUtil;
 
 import java.util.List;
 import java.util.Random;
@@ -60,9 +61,8 @@ public class ProjectActivityViewModel extends ViewModel {
 
     public @ColorInt
     int randomColor() {
-        Random random = new Random();
-        int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
-        return color;
+        RandomColorUtil random = new RandomColorUtil();
+        return random.randomColorGenerator();
     }
 
     public Project createProject(List<Project> projects, String name) {
