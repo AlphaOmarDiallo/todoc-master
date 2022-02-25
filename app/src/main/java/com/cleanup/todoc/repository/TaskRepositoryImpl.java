@@ -34,4 +34,8 @@ public class TaskRepositoryImpl implements TaskRepository {
     public void deleteTask(Task task) {
         executorService.execute(() -> taskDao.deleteTask(task));
     }
+
+    public LiveData<List<Task>> taskByAlphabeticalOrder() {
+        return taskDao.taskByAlphabeticalOrder();
+    }
 }

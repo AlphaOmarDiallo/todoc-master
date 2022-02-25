@@ -1,6 +1,7 @@
 package com.cleanup.todoc.viewmodel;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.cleanup.todoc.model.Project;
@@ -21,6 +22,7 @@ public class MainActivityViewModel extends ViewModel {
     private final ProjectRepositoryImpl projectRepositoryImpl;
     LiveData<List<Project>> allProjects;
     LiveData<List<Task>> allTasks;
+    MutableLiveData<List<Task>> listTaskToDisplay;
 
     @Inject
     public MainActivityViewModel(TaskRepositoryImpl taskRepositoryImpl, ProjectRepositoryImpl projectRepositoryImpl) {
@@ -28,6 +30,10 @@ public class MainActivityViewModel extends ViewModel {
         this.projectRepositoryImpl = projectRepositoryImpl;
         allTasks = taskRepositoryImpl.getAllTasks();
         allProjects = projectRepositoryImpl.getAllProjects();
+    }
+
+    public MutableLiveData<List<Task>> getListTaskToDisplay() {
+        return listTaskToDisplay;
     }
 
     public LiveData<List<Project>> getAllProjects() {
