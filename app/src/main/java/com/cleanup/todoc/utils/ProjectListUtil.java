@@ -8,5 +8,11 @@ public class ProjectListUtil {
 
     public List<Project> projects;
 
+    public void updateProjects(List<Project> projects) {
+        this.projects = projects;
+    }
 
+    public List<Project> getProjects() {
+        return projects;
+    }
 }

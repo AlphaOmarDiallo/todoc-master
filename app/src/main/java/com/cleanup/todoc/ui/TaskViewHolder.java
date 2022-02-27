@@ -1,6 +1,7 @@
 package com.cleanup.todoc.ui;
 
 import android.content.res.ColorStateList;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,16 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleanup.todoc.R;
+import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.utils.ProjectListUtil;
 
-import java.util.Objects;
+import java.util.List;
 
 public class TaskViewHolder extends RecyclerView.ViewHolder {
+
+    private static final String TAG = "TAG";
+    List<Project> projects;
 
     ImageView imgProject;
     TextView lblTaskName;
@@ -34,9 +40,22 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Task task) {
-        imgProject.setImageTintList(ColorStateList.valueOf(Objects.requireNonNull(task.getProject()).getColor()));
+        Project project = null;
+        try{
+            for(Project projectX: projects){
+                if (task.getProjectId() == projectX.getId()) {
+                    project = projectX;
+                    lblProjectName.setText(project.getName());
+                    imgProject.setImageTintList(ColorStateList.valueOf((project.getColor())));
+                } else {
+                    project = null;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(TAG, "bind: " + projects, null);
+        }
         lblTaskName.setText(task.getName());
-        lblProjectName.setText(task.getProject().getName());
         imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,8 +1,11 @@
 package com.cleanup.todoc.ui;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +27,7 @@ import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.ui.project.ProjectActivity;
+import com.cleanup.todoc.utils.ProjectListUtil;
 import com.cleanup.todoc.viewmodel.MainActivityViewModel;
 
 import java.util.Collections;
@@ -37,8 +41,8 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
 
     public MainActivityViewModel viewModel;
     private List<Project> allProjects;
-    //private final TasksAdapter adapter = new TasksAdapter(this);
     private TaskAdapter adapter = new TaskAdapter(new TaskAdapter.TaskDiff());
+
     @NonNull
     private SortMethod sortMethod = SortMethod.NONE;
     @Nullable
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        Log.e(TAG, "onCreate: viewmodel" + viewModel, null);
         setContentView(R.layout.activity_main);
 
         listTasks = findViewById(R.id.list_tasks);
@@ -65,16 +70,24 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         listTasks.setAdapter(adapter);
 
-        viewModel.getAllProjects().observe(this, this::updateProjects);
-        viewModel.getAllTasks().observe(this, adapter::submitList);
-        viewModel.getAllTasks().observe(this, this::updateTasks);
-
         findViewById(R.id.fab_add_task).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showAddTaskDialog();
             }
         });
+
+        setViewModel();
+    }
+
+    private void setViewModel(){
+        viewModel.getAllProjects().observe(this, this::updateProjects);
+        Log.e(TAG, "setViewModel: projects " + allProjects, null);
+        viewModel.getAllTasks().observe(this, adapter::submitList);
+        viewModel.getAllTasks().observe(this, this::updateTasks);
+
+        Log.e(TAG, "onCreate: "+ viewModel.getAllProjects(), null);
+        Log.e(TAG, "onCreate: "+ viewModel.getAllTasks(), null);
     }
 
     private void updateProjects(List<Project> projects) {
@@ -103,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
             Intent intent = new Intent(this, ProjectActivity.class);
             startActivity(intent);
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -206,10 +218,7 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
                 case OLD_FIRST:
                     Collections.sort(tasks, new Task.TaskOldComparator());
                     break;
-
             }
-            //adapter._updateTasks(tasks);
-            //adapter._updateProjects(viewModel.listProjects());
         }
     }
 

@@ -1,5 +1,9 @@
 package com.cleanup.todoc.viewmodel;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -9,6 +13,7 @@ import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.repository.ProjectRepositoryImpl;
 import com.cleanup.todoc.repository.TaskRepositoryImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -30,10 +35,7 @@ public class MainActivityViewModel extends ViewModel {
         this.projectRepositoryImpl = projectRepositoryImpl;
         allTasks = taskRepositoryImpl.getAllTasks();
         allProjects = projectRepositoryImpl.getAllProjects();
-    }
-
-    public MutableLiveData<List<Task>> getListTaskToDisplay() {
-        return listTaskToDisplay;
+        Log.e(TAG, "MainActivityViewModel: " + allTasks , null);
     }
 
     public LiveData<List<Project>> getAllProjects() {
