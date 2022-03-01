@@ -7,6 +7,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.List;
+
 @Entity(tableName = "project_table")
 public class Project {
     @PrimaryKey
@@ -63,6 +65,17 @@ public class Project {
     @NonNull
     public String toString() {
         return getName();
+    }
+
+    public Project getProject(List<Project> projects, long id) {
+        Project project = null;
+        for(Project currentProject : projects){
+            if(currentProject.id == id){
+                project = currentProject;
+                break;
+            }
+        }
+        return project;
     }
 
 }

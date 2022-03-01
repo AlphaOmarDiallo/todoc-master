@@ -48,12 +48,15 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
                     lblProjectName.setText(project.getName());
                     imgProject.setImageTintList(ColorStateList.valueOf((project.getColor())));
                 } else {
-                    project = null;
+                    lblProjectName.setText(task.getProject().getName());
+                    imgProject.setImageTintList(ColorStateList.valueOf((task.getProject().getColor())));
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(TAG, "bind: " + projects, null);
+            lblProjectName.setText(task.getProject().getName());
+            imgProject.setImageTintList(ColorStateList.valueOf((task.getProject().getColor())));
         }
         lblTaskName.setText(task.getName());
         imgDelete.setOnClickListener(new View.OnClickListener() {

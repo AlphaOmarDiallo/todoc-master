@@ -154,7 +154,8 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
                 Task task = new Task(
                         taskProject.getId(),
                         taskName,
-                        new Date().getTime()
+                        new Date().getTime(),
+                        taskProject
                 );
 
                 addTask(task);

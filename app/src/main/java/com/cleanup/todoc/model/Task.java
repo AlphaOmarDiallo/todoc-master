@@ -3,6 +3,7 @@ package com.cleanup.todoc.model;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -24,11 +25,21 @@ public class Task {
     @ColumnInfo(name = "task_creationTimestamp")
     private long creationTimestamp;
 
-    public Task(long projectId, @NonNull String name, long creationTimestamp) {
+    @Embedded
+    Project project;
+
+    public Task(long projectId, String name, long creationTimestamp, Project project) {
+        this.projectId = projectId;
+        this.name = name;
+        this.creationTimestamp = creationTimestamp;
+        this.project = project;
+    }
+
+    /*public Task(long projectId, @NonNull String name, long creationTimestamp) {
         this.setProjectId(projectId);
         this.setName(name);
         this.setCreationTimestamp(creationTimestamp);
-    }
+    }*/
 
     public long getId() {
         return id;
@@ -63,10 +74,17 @@ public class Task {
         this.id = id;
     }
 
-    @Nullable
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+/*@Nullable
     public Project getProject() {
         return Project.getProjectById(projectId);
-    }
+    }*/
 
     // ============================================================================
     // COMPARATORS
