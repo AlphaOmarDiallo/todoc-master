@@ -27,7 +27,6 @@ import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.ui.project.ProjectActivity;
-import com.cleanup.todoc.utils.ProjectListUtil;
 import com.cleanup.todoc.viewmodel.MainActivityViewModel;
 
 import java.util.Collections;
@@ -37,12 +36,11 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MainActivity extends AppCompatActivity implements DeleteTaskListener {
+public class MainActivity extends AppCompatActivity implements DeleteTaskListener, TaskAdapter.ToDeleteTaskListener {
 
     public MainActivityViewModel viewModel;
     private List<Project> allProjects;
-    private TaskAdapter adapter = new TaskAdapter(new TaskAdapter.TaskDiff());
-
+    private final TaskAdapter adapter = new TaskAdapter(new TaskAdapter.TaskDiff());
     @NonNull
     private SortMethod sortMethod = SortMethod.NONE;
     @Nullable
@@ -51,17 +49,14 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
     private EditText dialogEditText = null;
     @Nullable
     private Spinner dialogSpinner = null;
-    @NonNull
     private RecyclerView listTasks;
-    @SuppressWarnings("NullableProblems")
-    @NonNull
     private TextView lblNoTasks;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        Log.e(TAG, "onCreate: viewmodel" + viewModel, null);
+        Log.e(TAG, "onCreate: viewModel" + viewModel, null);
         setContentView(R.layout.activity_main);
 
         listTasks = findViewById(R.id.list_tasks);
@@ -70,24 +65,19 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         listTasks.setAdapter(adapter);
 
-        findViewById(R.id.fab_add_task).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAddTaskDialog();
-            }
-        });
+        findViewById(R.id.fab_add_task).setOnClickListener(view -> showAddTaskDialog());
 
         setViewModel();
     }
 
-    private void setViewModel(){
+    private void setViewModel() {
         viewModel.getAllProjects().observe(this, this::updateProjects);
         Log.e(TAG, "setViewModel: projects " + allProjects, null);
         viewModel.getAllTasks().observe(this, adapter::submitList);
         viewModel.getAllTasks().observe(this, this::updateTasks);
 
-        Log.e(TAG, "onCreate: "+ viewModel.getAllProjects(), null);
-        Log.e(TAG, "onCreate: "+ viewModel.getAllTasks(), null);
+        Log.e(TAG, "onCreate: " + viewModel.getAllProjects(), null);
+        Log.e(TAG, "onCreate: " + viewModel.getAllTasks(), null);
     }
 
     private void updateProjects(List<Project> projects) {
@@ -105,17 +95,22 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
         int id = item.getItemId();
 
         if (id == R.id.filter_alphabetical) {
+            viewModel.setTaskByAlphabeticalOrderASC();
             sortMethod = SortMethod.ALPHABETICAL;
         } else if (id == R.id.filter_alphabetical_inverted) {
             sortMethod = SortMethod.ALPHABETICAL_INVERTED;
+            viewModel.setTaskByAlphabeticalOrderDesc();
         } else if (id == R.id.filter_oldest_first) {
             sortMethod = SortMethod.OLD_FIRST;
+            viewModel.setTaskByCreationOrder();
         } else if (id == R.id.filter_recent_first) {
             sortMethod = SortMethod.RECENT_FIRST;
+            viewModel.setTaskByCreationOrderDesc();
         } else if (id == R.id.add_project) {
             Intent intent = new Intent(this, ProjectActivity.class);
             startActivity(intent);
         }
+        viewModel.getAllTasks().observe(this, adapter::submitList);
         return super.onOptionsItemSelected(item);
     }
 
@@ -134,23 +129,17 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
         if (dialogEditText != null && dialogSpinner != null) {
             // Get the name of the task
             String taskName = dialogEditText.getText().toString();
-
             // Get the selected project to be associated to the task
             Project taskProject = null;
             if (dialogSpinner.getSelectedItem() instanceof Project) {
                 taskProject = (Project) dialogSpinner.getSelectedItem();
             }
-
             // If a name has not been set
             if (taskName.trim().isEmpty()) {
                 dialogEditText.setError(getString(R.string.empty_task_name));
             }
             // If both project and name of the task have been set
             else if (taskProject != null) {
-                // TODO: Replace this by id of persisted task
-                long id = (long) (Math.random() * 50000);
-
-
                 Task task = new Task(
                         taskProject.getId(),
                         taskName,
@@ -167,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
                 dialogInterface.dismiss();
             }
         }
-        // If dialog is aloready closed
+        // If dialog is already closed
         else {
             dialogInterface.dismiss();
         }
@@ -253,13 +242,7 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
             public void onShow(DialogInterface dialogInterface) {
 
                 Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                button.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        onPositiveButtonClick(dialog);
-                    }
-                });
+                button.setOnClickListener(view -> onPositiveButtonClick(dialog));
             }
         });
 
@@ -277,29 +260,19 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
         }
     }
 
-    /**
-     * List of all possible sort methods for task
-     */
+    @Override
+    public void onToDeleteTask(int position) {
+        List<Task> tasks = (List<Task>) viewModel.getAllTasks();
+        Task task = tasks.get(position);
+        viewModel.deleteTask(task);
+    }
+
     private enum SortMethod {
-        /**
-         * Sort alphabetical by name
-         */
+
         ALPHABETICAL,
-        /**
-         * Inverted sort alphabetical by name
-         */
         ALPHABETICAL_INVERTED,
-        /**
-         * Lastly created first
-         */
         RECENT_FIRST,
-        /**
-         * First created first
-         */
         OLD_FIRST,
-        /**
-         * No sort
-         */
         NONE
     }
 }

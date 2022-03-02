@@ -13,7 +13,6 @@ import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.repository.ProjectRepositoryImpl;
 import com.cleanup.todoc.repository.TaskRepositoryImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,7 +26,7 @@ public class MainActivityViewModel extends ViewModel {
     private final ProjectRepositoryImpl projectRepositoryImpl;
     LiveData<List<Project>> allProjects;
     LiveData<List<Task>> allTasks;
-    MutableLiveData<List<Task>> listTaskToDisplay;
+    MutableLiveData<List<Task>> displayList;
 
     @Inject
     public MainActivityViewModel(TaskRepositoryImpl taskRepositoryImpl, ProjectRepositoryImpl projectRepositoryImpl) {
@@ -35,19 +34,16 @@ public class MainActivityViewModel extends ViewModel {
         this.projectRepositoryImpl = projectRepositoryImpl;
         allTasks = taskRepositoryImpl.getAllTasks();
         allProjects = projectRepositoryImpl.getAllProjects();
-        Log.e(TAG, "MainActivityViewModel: " + allTasks , null);
+        Log.e(TAG, "MainActivityViewModel: " + allTasks, null);
+    }
+
+    MutableLiveData<List<Task>> getDisplayListiplayList() {
+        displayList.setValue((List<Task>) allTasks);
+        return displayList;
     }
 
     public LiveData<List<Project>> getAllProjects() {
         return allProjects;
-    }
-
-    public List<Project> listProjects() {
-        return projectRepositoryImpl.getListProjects();
-    }
-
-    public Project getProjectById(long id) {
-        return projectRepositoryImpl.getProjectById(id);
     }
 
     public LiveData<List<Task>> getAllTasks() {
@@ -60,6 +56,22 @@ public class MainActivityViewModel extends ViewModel {
 
     public void deleteTask(Task task) {
         taskRepositoryImpl.deleteTask(task);
+    }
+
+    public void setTaskByAlphabeticalOrderASC() {
+        allTasks = taskRepositoryImpl.taskByAlphabeticalOrder();
+    }
+
+    public void setTaskByAlphabeticalOrderDesc() {
+        allTasks = taskRepositoryImpl.taskByAlphabeticalOrder_DESC();
+    }
+
+    public void setTaskByCreationOrder(){
+        allTasks = taskRepositoryImpl.taskByCreationOrder();
+    }
+
+    public void setTaskByCreationOrderDesc() {
+        allTasks = taskRepositoryImpl.taskByCreationOrder_DESC();
     }
 
 }

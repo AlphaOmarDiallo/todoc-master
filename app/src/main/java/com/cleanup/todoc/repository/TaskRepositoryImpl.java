@@ -38,4 +38,16 @@ public class TaskRepositoryImpl implements TaskRepository {
     public LiveData<List<Task>> taskByAlphabeticalOrder() {
         return taskDao.taskByAlphabeticalOrder();
     }
+
+    public LiveData<List<Task>> taskByAlphabeticalOrder_DESC() {
+        return taskDao.taskByAlphabeticalOrder_DESC();
+    }
+
+    public LiveData<List<Task>> taskByCreationOrder() {
+        return taskDao.taskByCreationOrder();
+    }
+
+    public LiveData<List<Task>> taskByCreationOrder_DESC() {
+        return taskDao.taskByCreationOrder_DESC();
+    }
 }

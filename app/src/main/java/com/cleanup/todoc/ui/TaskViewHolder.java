@@ -1,7 +1,6 @@
 package com.cleanup.todoc.ui;
 
 import android.content.res.ColorStateList;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +12,9 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleanup.todoc.R;
-import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
-import com.cleanup.todoc.utils.ProjectListUtil;
-
-import java.util.List;
 
 public class TaskViewHolder extends RecyclerView.ViewHolder {
-
-    private static final String TAG = "TAG";
-    List<Project> projects;
 
     ImageView imgProject;
     TextView lblTaskName;
@@ -32,39 +24,24 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
 
     public TaskViewHolder(@NonNull View itemView, DeleteTaskListener deleteTaskListener) {
         super(itemView);
+        TaskViewHolder.deleteTaskListener = deleteTaskListener;
         imgProject = itemView.findViewById(R.id.img_project);
         lblTaskName = itemView.findViewById(R.id.lbl_task_name);
         lblProjectName = itemView.findViewById(R.id.lbl_project_name);
         imgDelete = itemView.findViewById(R.id.img_delete);
-        this.deleteTaskListener = deleteTaskListener;
     }
 
     public void bind(Task task) {
-        Project project = null;
-        try{
-            for(Project projectX: projects){
-                if (task.getProjectId() == projectX.getId()) {
-                    project = projectX;
-                    lblProjectName.setText(project.getName());
-                    imgProject.setImageTintList(ColorStateList.valueOf((project.getColor())));
-                } else {
-                    lblProjectName.setText(task.getProject().getName());
-                    imgProject.setImageTintList(ColorStateList.valueOf((task.getProject().getColor())));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e(TAG, "bind: " + projects, null);
-            lblProjectName.setText(task.getProject().getName());
-            imgProject.setImageTintList(ColorStateList.valueOf((task.getProject().getColor())));
-        }
+        lblProjectName.setText(task.getProject().getName());
+        imgProject.setImageTintList(ColorStateList.valueOf((task.getProject().getColor())));
         lblTaskName.setText(task.getName());
+        imgDelete.setTag(task);
         imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final Object tag = view.getTag();
                 if (tag instanceof Task) {
-                    TaskViewHolder.this.deleteTaskListener.onDeleteTask((Task) tag);
+                    deleteTaskListener.onDeleteTask((Task) tag);
                 }
             }
         });

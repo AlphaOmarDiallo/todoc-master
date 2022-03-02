@@ -164,7 +164,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
 
             lblTaskName.setText(task.getName());
             imgDelete.setTag(task);
-            try {
+            imgProject.setImageTintList(ColorStateList.valueOf(task.getProject().getColor()));
+            lblProjectName.setText(task.getProject().getName());
+            /*try {
                 for (Project project : projects) {
                     Log.e(TAG, "bind: " + projects, null);
                     if (task.getProjectId() == project.getId()) {
@@ -179,8 +181,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-            }
-
+            }*/
         }
     }
 }

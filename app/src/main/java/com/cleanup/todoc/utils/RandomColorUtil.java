@@ -10,7 +10,6 @@ public class RandomColorUtil {
     public @ColorInt
     int randomColorGenerator() {
         Random random = new Random();
-        int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
-        return color;
+        return Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
 }

@@ -2,7 +2,6 @@ package com.cleanup.todoc.viewmodel;
 
 import static android.content.ContentValues.TAG;
 
-import android.graphics.Color;
 import android.util.Log;
 
 import androidx.annotation.ColorInt;
@@ -16,7 +15,6 @@ import com.cleanup.todoc.repository.TaskRepositoryImpl;
 import com.cleanup.todoc.utils.RandomColorUtil;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -65,23 +63,8 @@ public class ProjectActivityViewModel extends ViewModel {
         return random.randomColorGenerator();
     }
 
-    public Project createProject(List<Project> projects, String name) {
-        long projectId;
+    public Project createProject(String name) {
         int projectColor = randomColor();
-        // getting id
-        long greatestId = 0;
-        List<Project> listProject = projectRepositoryImpl.getAllProjects().getValue();
-        if (projects.isEmpty()) {
-            projectId = 1;
-        } else {
-            for (int i = 0; i < listProject.size(); i++) {
-                long id = listProject.get(i).getId();
-                if (id > greatestId) {
-                    greatestId = id;
-                }
-            }
-            projectId = greatestId + 1;
-        }
-        return new Project(projectId, name, projectColor);
+        return new Project(name, projectColor);
     }
 }

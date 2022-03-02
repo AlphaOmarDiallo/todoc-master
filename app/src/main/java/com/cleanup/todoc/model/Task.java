@@ -1,7 +1,6 @@
 package com.cleanup.todoc.model;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
@@ -18,7 +17,7 @@ public class Task {
 
     @ColumnInfo(name = "task_projectId", index = true)
     private long projectId;
-    // Suppress warning because setName is called in constructor
+
     @ColumnInfo(name = "task_name")
     private String name;
 
@@ -34,12 +33,6 @@ public class Task {
         this.creationTimestamp = creationTimestamp;
         this.project = project;
     }
-
-    /*public Task(long projectId, @NonNull String name, long creationTimestamp) {
-        this.setProjectId(projectId);
-        this.setName(name);
-        this.setCreationTimestamp(creationTimestamp);
-    }*/
 
     public long getId() {
         return id;
@@ -81,10 +74,6 @@ public class Task {
     public Project getProject() {
         return project;
     }
-/*@Nullable
-    public Project getProject() {
-        return Project.getProjectById(projectId);
-    }*/
 
     // ============================================================================
     // COMPARATORS
