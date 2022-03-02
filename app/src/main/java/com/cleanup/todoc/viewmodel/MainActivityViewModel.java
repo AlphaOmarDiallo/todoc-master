@@ -5,7 +5,6 @@ import static android.content.ContentValues.TAG;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.cleanup.todoc.model.Project;
@@ -26,7 +25,6 @@ public class MainActivityViewModel extends ViewModel {
     private final ProjectRepositoryImpl projectRepositoryImpl;
     LiveData<List<Project>> allProjects;
     LiveData<List<Task>> allTasks;
-    MutableLiveData<List<Task>> displayList;
 
     @Inject
     public MainActivityViewModel(TaskRepositoryImpl taskRepositoryImpl, ProjectRepositoryImpl projectRepositoryImpl) {
@@ -35,11 +33,6 @@ public class MainActivityViewModel extends ViewModel {
         allTasks = taskRepositoryImpl.getAllTasks();
         allProjects = projectRepositoryImpl.getAllProjects();
         Log.e(TAG, "MainActivityViewModel: " + allTasks, null);
-    }
-
-    MutableLiveData<List<Task>> getDisplayListiplayList() {
-        displayList.setValue((List<Task>) allTasks);
-        return displayList;
     }
 
     public LiveData<List<Project>> getAllProjects() {
@@ -66,7 +59,7 @@ public class MainActivityViewModel extends ViewModel {
         allTasks = taskRepositoryImpl.taskByAlphabeticalOrder_DESC();
     }
 
-    public void setTaskByCreationOrder(){
+    public void setTaskByCreationOrder() {
         allTasks = taskRepositoryImpl.taskByCreationOrder();
     }
 

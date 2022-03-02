@@ -11,8 +11,6 @@ public interface ProjectRepository {
 
     List<Project> getListProjects();
 
-    Project getProjectById(long id);
-
     void insertProject(Project project);
 
     void deleteProject(Project project);

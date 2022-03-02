@@ -24,11 +24,11 @@ public interface TaskDao {
     LiveData<List<Task>> taskByAlphabeticalOrder();
 
     @Query("SELECT * FROM task_table ORDER BY task_name DESC")
-    LiveData<List<Task>> taskByAlphabeticalOrder_DESC();
+    LiveData<List<Task>> taskByAlphabeticalOrderDESC();
 
     @Query("SELECT * FROM task_table ORDER BY task_creationTimestamp")
     LiveData<List<Task>> taskByCreationOrder();
 
     @Query("SELECT * FROM task_table ORDER BY task_creationTimestamp DESC")
-    LiveData<List<Task>> taskByCreationOrder_DESC();
+    LiveData<List<Task>> taskByCreationOrderDESC();
 }

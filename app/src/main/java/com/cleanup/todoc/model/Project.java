@@ -38,23 +38,14 @@ public class Project {
         return name;
     }
 
-    @ColorInt
-    public int getColor() {
-        return color;
-    }
-
     @Override
     @NonNull
     public String toString() {
         return getName();
     }
 
-    /*@NonNull
-    public static Project[] getAllProjects() {
-        return new Project[]{
-                new Project("Projet Tartampion", 0xFFEADAD1),
-                new Project("Projet Lucidia", 0xFFB4CDBA),
-                new Project("Projet Circus", 0xFFA3CED2),
-        };
-    }*/
+    @ColorInt
+    public int getColor() {
+        return color;
+    }
 }

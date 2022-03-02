@@ -6,7 +6,6 @@ import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.ProjectDao;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 
 import javax.inject.Inject;
@@ -22,7 +21,6 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         this.projectDao = projectDao;
         this.allProject = allProject;
         this.executorService = executorService;
-
     }
 
     public LiveData<List<Project>> getAllProjects() {
@@ -32,10 +30,6 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     public List<Project> getListProjects() {
         executorService.execute(() -> listProjects = projectDao.getListProjects());
         return listProjects;
-    }
-
-    public Project getProjectById(long id) {
-        return Objects.requireNonNull(allProject.getValue()).get((int) id);
     }
 
     public void insertProject(Project project) {

@@ -40,7 +40,7 @@ public class TaskRepositoryImpl implements TaskRepository {
     }
 
     public LiveData<List<Task>> taskByAlphabeticalOrder_DESC() {
-        return taskDao.taskByAlphabeticalOrder_DESC();
+        return taskDao.taskByAlphabeticalOrderDESC();
     }
 
     public LiveData<List<Task>> taskByCreationOrder() {
@@ -48,6 +48,6 @@ public class TaskRepositoryImpl implements TaskRepository {
     }
 
     public LiveData<List<Task>> taskByCreationOrder_DESC() {
-        return taskDao.taskByCreationOrder_DESC();
+        return taskDao.taskByCreationOrderDESC();
     }
 }

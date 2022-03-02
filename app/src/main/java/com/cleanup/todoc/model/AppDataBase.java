@@ -16,5 +16,4 @@ public abstract class AppDataBase extends RoomDatabase {
 
     public final ExecutorService executorService = Executors.newFixedThreadPool(4);
 
-
 }
