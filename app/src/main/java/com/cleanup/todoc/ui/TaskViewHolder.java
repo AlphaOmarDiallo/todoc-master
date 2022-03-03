@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.utils.events.onDeleteEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class TaskViewHolder extends RecyclerView.ViewHolder {
 
@@ -20,11 +23,9 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     TextView lblTaskName;
     TextView lblProjectName;
     AppCompatImageView imgDelete;
-    static DeleteTaskListener deleteTaskListener;
 
-    public TaskViewHolder(@NonNull View itemView, DeleteTaskListener deleteTaskListener) {
+    public TaskViewHolder(@NonNull View itemView) {
         super(itemView);
-        TaskViewHolder.deleteTaskListener = deleteTaskListener;
         imgProject = itemView.findViewById(R.id.img_project);
         lblTaskName = itemView.findViewById(R.id.lbl_task_name);
         lblProjectName = itemView.findViewById(R.id.lbl_project_name);
@@ -35,20 +36,17 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         lblProjectName.setText(task.getProject().getName());
         imgProject.setImageTintList(ColorStateList.valueOf((task.getProject().getColor())));
         lblTaskName.setText(task.getName());
-        imgDelete.setTag(task);
         imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Object tag = view.getTag();
-                if (tag instanceof Task) {
-                    deleteTaskListener.onDeleteTask((Task) tag);
-                }
+                EventBus.getDefault().post(new onDeleteEvent(task));
             }
         });
     }
 
     static TaskViewHolder create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_task, parent, false);
-        return new TaskViewHolder(view, deleteTaskListener);
+        return new TaskViewHolder(view);
     }
+
 }

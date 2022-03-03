@@ -1,9 +1,5 @@
 package com.cleanup.todoc.viewmodel;
 
-import static android.content.ContentValues.TAG;
-
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -13,6 +9,7 @@ import com.cleanup.todoc.repository.ProjectRepositoryImpl;
 import com.cleanup.todoc.repository.TaskRepositoryImpl;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -32,7 +29,6 @@ public class MainActivityViewModel extends ViewModel {
         this.projectRepositoryImpl = projectRepositoryImpl;
         allTasks = taskRepositoryImpl.getAllTasks();
         allProjects = projectRepositoryImpl.getAllProjects();
-        Log.e(TAG, "MainActivityViewModel: " + allTasks, null);
     }
 
     public LiveData<List<Project>> getAllProjects() {
@@ -65,6 +61,10 @@ public class MainActivityViewModel extends ViewModel {
 
     public void setTaskByCreationOrderDesc() {
         allTasks = taskRepositoryImpl.taskByCreationOrder_DESC();
+    }
+
+    public Task getTaskByPosition(int position) {
+        return Objects.requireNonNull(allTasks.getValue()).get(position);
     }
 
 }

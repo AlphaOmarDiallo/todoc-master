@@ -58,4 +58,5 @@ public class ProjectActivityViewModel extends ViewModel {
         int projectColor = randomColor();
         return new Project(name, projectColor);
     }
+
 }

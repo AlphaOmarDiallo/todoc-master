@@ -24,7 +24,11 @@ import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.ui.project.ProjectActivity;
+import com.cleanup.todoc.utils.events.onDeleteEvent;
 import com.cleanup.todoc.viewmodel.MainActivityViewModel;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Date;
 import java.util.List;
@@ -32,7 +36,7 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MainActivity extends AppCompatActivity implements DeleteTaskListener, TaskAdapter.ToDeleteTaskListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String SORT_METHOD_KEY = "SORT_METHOD_KEY";
     public MainActivityViewModel viewModel;
@@ -88,18 +92,6 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
 
     private void addTask(@NonNull Task task) {
         viewModel.insertTask(task);
-    }
-
-    @Override
-    public void onDeleteTask(Task task) {
-        viewModel.deleteTask(task);
-    }
-
-    @Override
-    public void onToDeleteTask(int position) {
-        List<Task> tasks = (List<Task>) viewModel.getAllTasks();
-        Task task = tasks.get(position);
-        viewModel.deleteTask(task);
     }
 
     //=================== Menu ===========================================================
@@ -215,6 +207,12 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
         }
     }
 
+    // ============================== Eventbus related ==================================================
+    @Subscribe
+    public void onDeleteTask(onDeleteEvent event) {
+        viewModel.deleteTask(event.task);
+    }
+
     // ============================== LifeCycle related =================================================
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -250,6 +248,18 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
             viewModel.getAllTasks().observe(this, adapter::submitList);
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     private enum SortMethod {

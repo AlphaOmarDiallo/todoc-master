@@ -1,9 +1,6 @@
-package com.cleanup.todoc.ui;
-
-import static android.content.ContentValues.TAG;
+package com.cleanup.todoc.ui.unused;
 
 import android.content.res.ColorStateList;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

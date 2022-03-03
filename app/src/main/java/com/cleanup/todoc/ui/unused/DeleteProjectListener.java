@@ -1,4 +1,4 @@
-package com.cleanup.todoc.ui.project;
+package com.cleanup.todoc.ui.unused;
 
 import com.cleanup.todoc.model.Project;
 

@@ -10,13 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleanup.todoc.R;
-import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.viewmodel.ProjectActivityViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ProjectActivity extends AppCompatActivity implements DeleteProjectListener{
+public class ProjectActivity extends AppCompatActivity {
 
     ProjectActivityViewModel viewModel;
     ProjectAdapter adapter;
@@ -47,10 +46,5 @@ public class ProjectActivity extends AppCompatActivity implements DeleteProjectL
             Intent intent = new Intent(ProjectActivity.this, AddProjectActivity.class);
             startActivity(intent);
         });
-    }
-
-    @Override
-    public void onDeleteProject(Project project) {
-        viewModel.deleteProject(project);
     }
 }

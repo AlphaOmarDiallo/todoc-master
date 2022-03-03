@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.cleanup.todoc.R;
+import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.viewmodel.ProjectActivityViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -34,8 +35,9 @@ public class AddProjectActivity extends AppCompatActivity {
             if (projectName.getText().toString().trim().length() == 0) {
                 Toast.makeText(AddProjectActivity.this, R.string.empty_project_name, Toast.LENGTH_SHORT).show();
             } else {
-                viewModel.insertProject(viewModel.createProject(projectName.getText().toString()));
-                Toast.makeText(AddProjectActivity.this, "", Toast.LENGTH_SHORT).show();
+                Project project = viewModel.createProject(projectName.getText().toString());
+                viewModel.insertProject(project);
+                Toast.makeText(AddProjectActivity.this, R.string.project_created, Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
