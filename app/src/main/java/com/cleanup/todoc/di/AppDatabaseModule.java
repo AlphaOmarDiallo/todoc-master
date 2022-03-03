@@ -33,6 +33,7 @@ public class AppDatabaseModule {
                 appContext,
                 AppDataBase.class,
                 "Tasks_db")
+                .createFromAsset("database/preloadedDatabase.db")
                 .build();
     }
 
