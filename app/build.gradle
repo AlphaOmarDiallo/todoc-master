@@ -60,7 +60,7 @@ dependencies {
     testAnnotationProcessor 'com.google.dagger:hilt-compiler:2.41'
 
     //LIFECYCLE
-    def lifecycle_version = "2.5.0-alpha02"
+    def lifecycle_version = "2.5.0-alpha03"
     def arch_version = "2.1.0"
 
     // ViewModel
@@ -85,7 +85,7 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$arch_version"
 
     //ROOM
-    def room_version = "2.4.1"
+    def room_version = "2.4.2"
 
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
@@ -96,4 +96,7 @@ dependencies {
 
     //EVENTBUS
     implementation("org.greenrobot:eventbus:3.3.1")
+
+    //LEAK CANARY
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
 }
