@@ -1,4 +1,4 @@
-package com.cleanup.todoc.ui;
+package com.cleanup.todoc.ui.main;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,25 +23,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.ui.main.DeleteTaskListener;
+import com.cleanup.todoc.ui.main.TaskAdapter;
 import com.cleanup.todoc.ui.project.ProjectActivity;
-import com.cleanup.todoc.utils.events.onDeleteEvent;
 import com.cleanup.todoc.viewmodel.MainActivityViewModel;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DeleteTaskListener {
 
     private static final String SORT_METHOD_KEY = "SORT_METHOD_KEY";
     public MainActivityViewModel viewModel;
     private List<Project> allProjects;
-    private final TaskAdapter adapter = new TaskAdapter(new TaskAdapter.TaskDiff());
+    private final TaskAdapter adapter = new TaskAdapter(new TaskAdapter.TaskDiff(), this);
     @NonNull
     private SortMethod sortMethod = SortMethod.NONE;
     @Nullable
@@ -92,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void addTask(@NonNull Task task) {
         viewModel.insertTask(task);
+    }
+
+    @Override
+    public void onDeleteTask(int position) {
+        viewModel.deleteTask(Objects.requireNonNull(viewModel.getAllTasks().getValue()).get(position));
     }
 
     //=================== Menu ===========================================================
@@ -207,12 +211,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // ============================== Eventbus related ==================================================
-    @Subscribe
-    public void onDeleteTask(onDeleteEvent event) {
-        viewModel.deleteTask(event.task);
-    }
-
     // ============================== LifeCycle related =================================================
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -248,18 +246,6 @@ public class MainActivity extends AppCompatActivity {
             viewModel.getAllTasks().observe(this, adapter::submitList);
         }
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
     }
 
     private enum SortMethod {

@@ -27,11 +27,6 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         return allProject;
     }
 
-    public List<Project> getListProjects() {
-        executorService.execute(() -> listProjects = projectDao.getListProjects());
-        return listProjects;
-    }
-
     public void insertProject(Project project) {
         executorService.execute(() -> projectDao.insertProject(project));
     }

@@ -19,7 +19,7 @@
             android:name=".ui.project.ProjectActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>

@@ -9,8 +9,6 @@ import java.util.List;
 public interface ProjectRepository {
     LiveData<List<Project>> getAllProjects();
 
-    List<Project> getListProjects();
-
     void insertProject(Project project);
 
     void deleteProject(Project project);

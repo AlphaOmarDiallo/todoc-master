@@ -28,14 +28,13 @@ public class ProjectViewHolder extends RecyclerView.ViewHolder {
         id = itemView.findViewById(R.id.tv_id_Item_project);
         name = itemView.findViewById(R.id.tv_name_item_project);
         buttonDelete = itemView.findViewById(R.id.ib_delete_item_project);
-
-        buttonDelete.setVisibility(View.INVISIBLE);
     }
 
-    public void bind(Project project) {
+    public void bind(Project project, DeleteProjectListener deleteProjectListener) {
         colorImage.setImageTintList(ColorStateList.valueOf(project.getColor()));
         id.setText(String.valueOf(project.getId()));
         name.setText(project.getName());
+        buttonDelete.setOnClickListener(view -> deleteProjectListener.deleteProject(getAbsoluteAdapterPosition()));
     }
 
     static ProjectViewHolder create(ViewGroup parent) {

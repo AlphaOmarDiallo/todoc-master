@@ -60,11 +60,13 @@
                 android:id="@+id/ib_delete_item_project"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/ripple_color"
+                android:contentDescription="@string/delete_button"
+                android:minHeight="48dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_delete"
-                android:contentDescription="@string/delete_button" />
+                app:srcCompat="@drawable/ic_delete" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

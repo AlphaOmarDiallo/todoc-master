@@ -10,8 +10,11 @@ import com.cleanup.todoc.model.Project;
 
 public class ProjectAdapter extends ListAdapter<Project, ProjectViewHolder> {
 
-    protected ProjectAdapter(@NonNull DiffUtil.ItemCallback<Project> diffCallback) {
+    DeleteProjectListener deleteProjectListener;
+
+    protected ProjectAdapter(@NonNull DiffUtil.ItemCallback<Project> diffCallback, DeleteProjectListener deleteProjectListener) {
         super(diffCallback);
+        this.deleteProjectListener = deleteProjectListener;
     }
 
     @NonNull
@@ -22,7 +25,7 @@ public class ProjectAdapter extends ListAdapter<Project, ProjectViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
-        holder.bind(getItem(position));
+        holder.bind(getItem(position), deleteProjectListener);
     }
 
     static class ProjectDiff extends DiffUtil.ItemCallback<Project> {

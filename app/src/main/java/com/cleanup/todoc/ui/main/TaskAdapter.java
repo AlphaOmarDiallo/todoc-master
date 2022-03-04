@@ -1,4 +1,4 @@
-package com.cleanup.todoc.ui;
+package com.cleanup.todoc.ui.main;
 
 import android.view.ViewGroup;
 
@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.ListAdapter;
 import com.cleanup.todoc.model.Task;
 
 public class TaskAdapter extends ListAdapter<Task, TaskViewHolder> {
+    DeleteTaskListener deleteTaskListener;
 
-    protected TaskAdapter(@NonNull DiffUtil.ItemCallback<Task> diffCallback) {
+    protected TaskAdapter(@NonNull DiffUtil.ItemCallback<Task> diffCallback, DeleteTaskListener deleteTaskListener) {
         super(diffCallback);
+        this.deleteTaskListener = deleteTaskListener;
     }
 
     @NonNull
@@ -22,7 +24,7 @@ public class TaskAdapter extends ListAdapter<Task, TaskViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
-        holder.bind(getItem(position));
+        holder.bind(getItem(position), deleteTaskListener);
     }
 
     static class TaskDiff extends DiffUtil.ItemCallback<Task> {

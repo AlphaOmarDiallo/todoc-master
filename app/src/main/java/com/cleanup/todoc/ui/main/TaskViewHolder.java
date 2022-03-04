@@ -1,4 +1,4 @@
-package com.cleanup.todoc.ui;
+package com.cleanup.todoc.ui.main;
 
 import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
@@ -13,9 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Task;
-import com.cleanup.todoc.utils.events.onDeleteEvent;
-
-import org.greenrobot.eventbus.EventBus;
 
 public class TaskViewHolder extends RecyclerView.ViewHolder {
 
@@ -32,16 +29,11 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         imgDelete = itemView.findViewById(R.id.img_delete);
     }
 
-    public void bind(Task task) {
+    public void bind(Task task, DeleteTaskListener deleteTaskListener) {
         lblProjectName.setText(task.getProject().getName());
         imgProject.setImageTintList(ColorStateList.valueOf((task.getProject().getColor())));
         lblTaskName.setText(task.getName());
-        imgDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EventBus.getDefault().post(new onDeleteEvent(task));
-            }
-        });
+        imgDelete.setOnClickListener(view -> deleteTaskListener.onDeleteTask(getAbsoluteAdapterPosition()));
     }
 
     static TaskViewHolder create(ViewGroup parent) {

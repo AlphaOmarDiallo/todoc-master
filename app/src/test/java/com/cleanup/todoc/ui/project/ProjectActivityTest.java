@@ -18,8 +18,8 @@ public class ProjectActivityTest {
     int color1 = randomColorUtil.randomColorGenerator();
     int color2 = randomColorUtil.randomColorGenerator();
 
-    final Project project1 = new Project(1, "project1", color1);
-    final Project project2 = new Project(2, "project2", color2);
+    final Project project1 = new Project("project1", color1);
+    final Project project2 = new Project("project2", color2);
 
     @Test
     public void test_projects() {

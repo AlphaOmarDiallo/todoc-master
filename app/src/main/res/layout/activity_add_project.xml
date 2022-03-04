@@ -41,9 +41,12 @@
                 android:id="@+id/tv_project_name_aap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:inputType="text"
                 android:padding="8dp"
                 android:textAlignment="center"
                 android:textSize="20sp"
+                tools:ignore="LabelFor"
                 tools:text="Nom du projet" />
 
             <Button

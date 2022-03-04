@@ -9,7 +9,6 @@ import com.cleanup.todoc.repository.ProjectRepositoryImpl;
 import com.cleanup.todoc.repository.TaskRepositoryImpl;
 
 import java.util.List;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -20,7 +19,6 @@ public class MainActivityViewModel extends ViewModel {
 
     private final TaskRepositoryImpl taskRepositoryImpl;
     private final ProjectRepositoryImpl projectRepositoryImpl;
-    LiveData<List<Project>> allProjects;
     LiveData<List<Task>> allTasks;
 
     @Inject
@@ -28,11 +26,10 @@ public class MainActivityViewModel extends ViewModel {
         this.taskRepositoryImpl = taskRepositoryImpl;
         this.projectRepositoryImpl = projectRepositoryImpl;
         allTasks = taskRepositoryImpl.getAllTasks();
-        allProjects = projectRepositoryImpl.getAllProjects();
     }
 
     public LiveData<List<Project>> getAllProjects() {
-        return allProjects;
+        return projectRepositoryImpl.getAllProjects();
     }
 
     public LiveData<List<Task>> getAllTasks() {
@@ -61,10 +58,6 @@ public class MainActivityViewModel extends ViewModel {
 
     public void setTaskByCreationOrderDesc() {
         allTasks = taskRepositoryImpl.taskByCreationOrder_DESC();
-    }
-
-    public Task getTaskByPosition(int position) {
-        return Objects.requireNonNull(allTasks.getValue()).get(position);
     }
 
 }

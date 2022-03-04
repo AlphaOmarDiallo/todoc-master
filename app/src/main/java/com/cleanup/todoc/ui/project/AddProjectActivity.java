@@ -42,5 +42,7 @@ public class AddProjectActivity extends AppCompatActivity {
             }
         });
 
+        cancel.setOnClickListener(view -> finish());
+
     }
 }
