@@ -23,8 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
-import com.cleanup.todoc.ui.main.DeleteTaskListener;
-import com.cleanup.todoc.ui.main.TaskAdapter;
 import com.cleanup.todoc.ui.project.ProjectActivity;
 import com.cleanup.todoc.viewmodel.MainActivityViewModel;
 
@@ -190,7 +188,6 @@ public class MainActivity extends AppCompatActivity implements DeleteTaskListene
             // If both project and name of the task have been set
             else if (taskProject != null) {
                 Task task = new Task(
-                        taskProject.getId(),
                         taskName,
                         new Date().getTime(),
                         taskProject

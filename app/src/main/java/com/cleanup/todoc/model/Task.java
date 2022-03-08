@@ -4,17 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "task_table", foreignKeys = @ForeignKey(entity = Project.class, parentColumns = "project_id", childColumns = "task_projectId", onDelete = ForeignKey.CASCADE))
+@Entity(tableName = "task_table")
 public class Task {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "task_id")
     private long id;
-
-    @ColumnInfo(name = "task_projectId", index = true)
-    private long projectId;
 
     @ColumnInfo(name = "task_name")
     private String name;
@@ -25,8 +21,7 @@ public class Task {
     @Embedded
     Project project;
 
-    public Task(long projectId, String name, long creationTimestamp, Project project) {
-        this.projectId = projectId;
+    public Task(String name, long creationTimestamp, Project project) {
         this.name = name;
         this.creationTimestamp = creationTimestamp;
         this.project = project;
@@ -34,10 +29,6 @@ public class Task {
 
     public long getId() {
         return id;
-    }
-
-    private void setProjectId(long projectId) {
-        this.projectId = projectId;
     }
 
     @NonNull
@@ -51,10 +42,6 @@ public class Task {
 
     private void setCreationTimestamp(long creationTimestamp) {
         this.creationTimestamp = creationTimestamp;
-    }
-
-    public long getProjectId() {
-        return projectId;
     }
 
     public long getCreationTimestamp() {

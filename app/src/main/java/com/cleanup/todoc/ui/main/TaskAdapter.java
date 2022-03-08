@@ -1,5 +1,6 @@
 package com.cleanup.todoc.ui.main;
 
+import android.annotation.SuppressLint;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -34,12 +35,13 @@ public class TaskAdapter extends ListAdapter<Task, TaskViewHolder> {
             return oldItem.getId() == newItem.getId();
         }
 
+        @SuppressLint("DiffUtilEquals")
         @Override
         public boolean areContentsTheSame(@NonNull Task oldItem, @NonNull Task newItem) {
             return oldItem.getId() == newItem.getId() &&
                     oldItem.getName().equals(newItem.getName()) &&
                     oldItem.getCreationTimestamp() == newItem.getCreationTimestamp() &&
-                    oldItem.getProjectId() == newItem.getProjectId();
+                    oldItem.getProject() == newItem.getProject();
         }
     }
 }
