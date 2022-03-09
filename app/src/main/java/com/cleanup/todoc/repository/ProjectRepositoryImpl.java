@@ -14,7 +14,6 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     public ProjectDao projectDao;
     public ExecutorService executorService;
     public LiveData<List<Project>> allProject;
-    public List<Project> listProjects;
 
     @Inject
     public ProjectRepositoryImpl(ProjectDao projectDao, LiveData<List<Project>> allProject, ExecutorService executorService) {
@@ -25,6 +24,11 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
     public LiveData<List<Project>> getAllProjects() {
         return allProject;
+    }
+
+    @Override
+    public List<Project> getAllProjectsTestUsage() {
+        return projectDao.getAllProjectsTestUsage();
     }
 
     public void insertProject(Project project) {

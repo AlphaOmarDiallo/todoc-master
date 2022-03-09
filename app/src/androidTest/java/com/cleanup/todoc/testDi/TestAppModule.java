@@ -32,7 +32,7 @@ import dagger.hilt.testing.TestInstallIn;
 public class TestAppModule {
 
     @Provides
-    AppDataBase provideTestAppDatabase2(@ApplicationContext Context appContext) {
+    AppDataBase provideTestAppDatabase(@ApplicationContext Context appContext) {
         return Room.databaseBuilder(
                 appContext,
                 AppDataBase.class,

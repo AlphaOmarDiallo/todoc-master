@@ -9,7 +9,15 @@ import java.util.List;
 public interface TaskRepository {
     LiveData<List<Task>> getAllTasks();
 
+    List<Task> getTasksTestUsage();
+
     LiveData<List<Task>> taskByAlphabeticalOrder();
+
+    LiveData<List<Task>> taskByAlphabeticalOrder_DESC();
+
+    LiveData<List<Task>> taskByCreationOrder();
+
+    LiveData<List<Task>> taskByCreationOrder_DESC();
 
     void insertTask(Task task);
 

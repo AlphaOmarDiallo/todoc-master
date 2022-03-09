@@ -50,4 +50,8 @@ public class TaskRepositoryImpl implements TaskRepository {
     public LiveData<List<Task>> taskByCreationOrder_DESC() {
         return taskDao.taskByCreationOrderDESC();
     }
+
+    public List<Task> getTasksTestUsage() {
+        return taskDao.getTasksTestUsage();
+    }
 }

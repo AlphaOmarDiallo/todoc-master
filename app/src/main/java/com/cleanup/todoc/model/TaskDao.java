@@ -20,6 +20,9 @@ public interface TaskDao {
     @Query("SELECT * FROM task_table")
     LiveData<List<Task>> getTasks();
 
+    @Query("SELECT * FROM task_table")
+    List<Task> getTasksTestUsage();
+
     @Query("SELECT * FROM task_table ORDER BY task_name")
     LiveData<List<Task>> taskByAlphabeticalOrder();
 

@@ -1,12 +1,7 @@
 package com.cleanup.todoc.ui.project;
-import static android.content.ContentValues.TAG;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.mock;
-
-import android.util.Log;
-
-import androidx.annotation.ColorInt;
 
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.utils.RandomColorUtil;
@@ -26,6 +21,9 @@ public class ProjectActivityTest {
 
         assertEquals("project1", project1.getName());
         assertEquals("project2", project2.getName());
+
+        project1.setId(0);
+        project2.setId(1);
 
         assertNotEquals(project1.getId(), project2.getId());
     }
