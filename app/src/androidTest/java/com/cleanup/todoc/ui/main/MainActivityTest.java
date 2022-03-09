@@ -84,7 +84,6 @@ public class MainActivityTest {
         Thread.sleep(1000);
         onView(allOf(withId(R.id.list_tasks), isCompletelyDisplayed()))
                 .check(matches(hasChildCount(3)));
-        onView(withText("Tu n’as aucune tâche à traiter")).check(matches(not(isDisplayed())));
     }
 
     @Test
