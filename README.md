@@ -13,7 +13,7 @@ Challenge:
 Save time for all employees.
 
 Tech stack used:
-*Java
-*ROOM
-*DAGGER2/HILT
-*GIT
+* Java
+* ROOM
+* DAGGER2/HILT
+* GIT
