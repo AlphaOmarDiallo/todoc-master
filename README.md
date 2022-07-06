@@ -1,7 +1,9 @@
-# todoc-master
-Project 5 - Android developer path by Openclassrooms
+# Todoc
 
-Identification of the project and the mission
+This repository contains an application for project 5 of the path **Grande École du Numérique**. 
+This application is the property of the startup Lamzone. It helps collaborators book meetingrooms quickly. 
+
+## Identification of the project and the mission
 
 Name and nature: 
 As part of the company's growth, the management of meetings becomes a key issue for employees. The company therefore wishes to create a meeting management application, Maréu, which can be used internally by all, collaborators.
@@ -17,11 +19,6 @@ Tech stack used:
 * ROOM
 * DAGGER2/HILT
 * GIT
-
-# Todoc
-
-This repository contains an application for project 5 of the path **Grande École du Numérique**. 
-This application is the property of the startup Lamzone. It helps collaborators book meetingrooms quickly. 
 
 ## Project setup
 
