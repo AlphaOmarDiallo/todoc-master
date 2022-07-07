@@ -3,6 +3,8 @@
 This repository contains an application for project 5 of the path **Grande École du Numérique**. 
 This application is the property of the startup Lamzone. It helps collaborators book meetingrooms quickly. 
 
+[Visual of the application are available here](https://drive.google.com/drive/folders/19gkOm85KPoIhn1XBeZA01RXF0T2S12GA?usp=sharing)
+
 ## Identification of the project and the mission
 
 Name and nature: 
